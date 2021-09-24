@@ -25,3 +25,7 @@ router.post('/reg/login', async (req, res) => {
         res.status(400).send(e)
     }
 })
+
+router.get('/reg/me', async (req, res) => {
+    res.send(req.user)
+})
