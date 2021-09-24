@@ -10,6 +10,7 @@ function signUp() {
         .then(function (response) {
             console.log(response);
             console.log(response.data)
+            location.replace('http://localhost:3000/')
         })
         .catch(function (error) {
             console.log(error);

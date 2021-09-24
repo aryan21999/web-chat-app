@@ -7,6 +7,7 @@ function logIn() {
         })
         .then(function (response) {
             console.log(response);
+            location.replace('http://localhost:3000/index')
         })
         .catch(function (error) {
             console.log(error);
@@ -22,6 +23,7 @@ function submit() {
         })
         .then(function (response) {
             console.log(response);
+            location.replace('http://localhost:3000')
         })
         .catch(function (error) {
             console.log(error)
