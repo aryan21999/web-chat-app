@@ -14,6 +14,9 @@ app.get('/', function (req, res, next) {
   res.render(`${publicDirectoryPath}signin`)
 })
 
+app.get('/index', function (req, res, next) {
+  res.render(`${publicDirectoryPath}index`)
+})
 
 app.get('/signup', function (req, res, next) {
   res.render(`${publicDirectoryPath}signup`)
