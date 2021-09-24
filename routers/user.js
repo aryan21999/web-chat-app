@@ -29,3 +29,12 @@ router.post('/reg/login', async (req, res) => {
 router.get('/reg/me', async (req, res) => {
     res.send(req.user)
 })
+
+router.post('/reg/forget', async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['password']
+        try {
+            const user = User.findOneAndUpdate({email: req.body.email}, {password: req.body.password}, {new: true})
+        }
+})
+
