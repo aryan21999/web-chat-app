@@ -2,6 +2,9 @@ const http = require('http');
 const express = require('express');
 const path = require('path');
 const db = require('./db/mongoose');
+const userRouter = require('./routers/user')
+const friendRouter = require('./routers/friend')
+const chatRouter = require('./routers/chat')
 const socketio = require('socket.io');
 
 const app = express();
@@ -44,6 +47,9 @@ app.use(express.static(publicDirectoryPath))
 
 app.use(express.json())
 app.use(express.static("public"));
+app.use(userRouter)
+app.use(friendRouter)
+app.use(chatRouter)
 
 const port = process.env.port || 3000
 
