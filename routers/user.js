@@ -22,9 +22,9 @@ router.post('/reg', async (req, res) => {
 router.post('/reg/login', async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email, password: req.body.password })
-        // console.log(user)
         const token = await user.generateAuthToken()
         res.send({ user, token })
+        console.log(token)
     }
     catch (e) {
         console.log(e)

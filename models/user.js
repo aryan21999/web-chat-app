@@ -45,10 +45,20 @@ const userSchema = new mongoose.Schema({
 //     foreignField: 'owner'
 // })
 
+// userSchema.methods.generateAuthToken = async function() {
+//     const user = this    
+//     const token = jwt.sign({_id:user._id.toString()},'thisismynewproject')
+//     return token
+
 userSchema.methods.generateAuthToken = async function() {
-    const user = this    
-    const token = jwt.sign({_id:user._id.toString()},'thisisnewcourse')
-    return token}
+    const user = this
+    const token = jwt.sign({ _id: user._id.toString() }, 'thisismyfirstproject')
+
+    user.tokens = user.tokens.concat({ token })
+    await user.save()
+
+    return token
+}
 
 const User = mongoose.model('User', userSchema)
 

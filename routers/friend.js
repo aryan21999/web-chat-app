@@ -4,7 +4,8 @@ const auth = require('../middleware/auth')
 const router = new express.Router()
 
 // Create New Friends
-router.post('/friends', auth, async (req, res) => {
+router.post('/add', auth, async (req, res) => {
+    console.log("sfwe")
     const friend = new Friend ({
         name: req.body.name,
         email: req.body.email,

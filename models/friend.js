@@ -20,7 +20,7 @@ const friendSchema = new mongoose.Schema({
         }
     },
     owner: {
-        type: mongoose.Schema.Types.String,
+        type: String,
         required: true,
         ref: 'User'
     }
