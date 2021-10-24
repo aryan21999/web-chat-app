@@ -1,7 +1,7 @@
 function logIn() {
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
-        axios.post("reg/login", {
+        axios.post("users/login", {
             email: email,
             password: password,
         })
@@ -17,7 +17,7 @@ function logIn() {
 function submit() {
     const email = document.getElementById("email").value
     const newPassword = document.getElementById("newPassword").value
-        axios.patch("/reg/forget", {
+        axios.patch("/users/forget", {
             email: email,
             newPassword: newPassword,
         })
