@@ -1,3 +1,4 @@
+const http = require('http')
 const express = require('express')
 const Chat = require('../models/chat')
 const auth = require('../middleware/auth')
@@ -22,7 +23,6 @@ router.post('/chats', auth, async(req, res) => {
 router.get('/chats', auth, async(req, res) => {
     try {
         const chat = await Chat.find()
-            // const chat = await Chat.find({$or:[{sender: ${sender}}, {receiver: ${receiver}}]}, $and:[{sender: ${sender}}, {receiver: ${receiver}}])
         res.send(chat)
     } catch (e) {
         res.status(500).send(e)

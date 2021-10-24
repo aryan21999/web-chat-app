@@ -1,11 +1,11 @@
+const http = require('http')
 const express = require('express')
 const Friend = require('../models/friend')
 const auth = require('../middleware/auth')
 const router = new express.Router()
 
 // Create New Friends
-router.post('/add', auth, async (req, res) => {
-    console.log("sfwe")
+router.post('/friends', auth, async (req, res) => {
     const friend = new Friend ({
         name: req.body.name,
         email: req.body.email,

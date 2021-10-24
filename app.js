@@ -8,8 +8,8 @@ const chatRouter = require('./routers/chat')
 const socketio = require('socket.io');
 
 const app = express();
-const server = http.createServer(app);
-// const io = socketio(server);
+const server = http.createServer(app)
+const io = socketio(server);
 
 app.use(express.static(__dirname + '././public'));
 const publicDirectoryPath = path.join(__dirname, '/views/')
@@ -44,12 +44,20 @@ app.get('/addContact', function (req, res, next) {
 
 app.use(express.static(publicDirectoryPath))
 
+io.on('connection', (socket) => {
+  socket.on('chat', (msg, receiver) => {
+      console.log(msg, receiver)
+      io.emit(receiver, msg);
+  });
+})
+
 
 app.use(express.json())
 app.use(express.static("public"));
 app.use(userRouter)
 app.use(friendRouter)
 app.use(chatRouter)
+
 
 const port = process.env.port || 3000
 
