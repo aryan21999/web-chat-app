@@ -11,14 +11,10 @@ const app = express();
 const server = http.createServer(app)
 const io = socketio(server);
 
+
 app.use(express.static(__dirname + '././public'));
 const publicDirectoryPath = path.join(__dirname, '/views/')
 
-// io.on('connection', socket => {
-//   console.log('New webSocket Connection...');
-
-//   socket.emit('message', 'Welcome to Web-Chat-App');
-// })
 
 app.set("view engine", "ejs");
 
@@ -44,12 +40,18 @@ app.get('/addContact', function (req, res, next) {
 
 app.use(express.static(publicDirectoryPath))
 
-io.on('connection', (socket) => {
-  socket.on('chat', (msg, receiver) => {
-      console.log(msg, receiver)
-      io.emit(receiver, msg);
-  });
+io.on('connection', () => {
+  console.log('New webSocket Connection...');
+
+  // socket.emit('message', 'Welcome to Web-Chat-App');
 })
+
+// io.on('connection', (socket) => {
+//   socket.on('chat', (msg, receiver) => {
+//       console.log("connection successful")
+//       io.emit(receiver, msg);
+//   });
+// })
 
 
 app.use(express.json())
@@ -60,6 +62,7 @@ app.use(chatRouter)
 
 
 const port = process.env.port || 3000
+
 
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`)
