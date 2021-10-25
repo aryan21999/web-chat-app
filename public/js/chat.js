@@ -20,7 +20,19 @@ axios.get('/friends', {
         ownerEmail = response.data[0].owner
         inboxMsg(window[document.getElementById('chatBody').innerHTML])
     })
-    .catch(function (error) {
+    .then(() => {
+        socket.on(ownerEmail, (msg) => {
+            const messageElement = document.createElement('div')
+            messageElement.classList.add('chat-panel');
+            messageElement.classList.add('col-md-3');
+            messageElement.classList.add('chat-bubble');
+            messageElement.classList.add('chat-bubble--left');
+            messageElement.innerHTML = `<h4>${msg}</h4>`
+            chatBody.append(messageElement)
+            scrollToBottom()
+        })
+    })
+    .catch(function(error) {
         console.log(error)
     });
 
@@ -60,11 +72,16 @@ axios.get('/friends', {
     }
 
 
+    function scrollToBottom() {
+        var objDiv = document.getElementById("chatBody");
+        objDiv.scrollIntoView(false)
+    }
+
+
     function chatUser() {
         const receiver = document.getElementsByClassName('active')[0].id
-        console.log(receiver)
         const message = document.getElementById("message").value
-        console.log(message)
+        socket.emit('chat', message, receiver)
         axios.post('/chats', {
                 friend: receiver,
                 message: message
@@ -75,12 +92,26 @@ axios.get('/friends', {
                 }
             })
             .then(function(response) {
-                location.reload()
+                const messageElement = document.createElement('div')
+                messageElement.classList.add('chat-panel');
+                messageElement.classList.add('col-md-3');
+                messageElement.classList.add('offset-md-9');
+                messageElement.classList.add('chat-bubble');
+                messageElement.classList.add('chat-bubble--right');
+                messageElement.innerHTML = `<h4>${message}</h4>`
+                chatBody.append(messageElement)
+                document.getElementById("message").value = ''
+                scrollToBottom()
             })
             .catch(function(error) {
                 console.log(error);
             })
     }
+    document.getElementById("message").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            chatUser()
+        }
+    });
     
 
 function logOut() {

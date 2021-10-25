@@ -40,18 +40,19 @@ app.get('/addContact', function (req, res, next) {
 
 app.use(express.static(publicDirectoryPath))
 
-io.on('connection', () => {
-  console.log('New webSocket Connection...');
+// checking connection
+// io.on('connection', () => {
+//   console.log('New webSocket Connection...');
 
-  // socket.emit('message', 'Welcome to Web-Chat-App');
-})
-
-// io.on('connection', (socket) => {
-//   socket.on('chat', (msg, receiver) => {
-//       console.log("connection successful")
-//       io.emit(receiver, msg);
-//   });
+//   // socket.emit('message', 'Welcome to Web-Chat-App');
 // })
+
+io.on('connection', (socket) => {
+  socket.on('chat', (msg, receiver) => {
+      console.log(msg, receiver)
+      io.emit(receiver, msg);
+  });
+})
 
 
 app.use(express.json())
@@ -67,3 +68,5 @@ const port = process.env.port || 3000
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`)
 })
+
+module.exports = app
