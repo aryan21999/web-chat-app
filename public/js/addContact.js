@@ -9,7 +9,7 @@ function addContact() {
     email: email
   }, {
     headers: {
-      Authorization: ('Bearer ', localStorage.getItem("token"))
+      Authorization: ('Bearer ', ('; ' + document.cookie).split(`; token=`).pop().split(';')[0])
     }})
     .then(function (response) {
       console.log(response)

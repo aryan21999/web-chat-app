@@ -3,7 +3,7 @@ const socket = io()
 var ownerEmail
 axios.get('/friends', {
     headers: {
-        Authorization: ('Bearer ', localStorage.getItem("token"))
+        Authorization: ('Bearer ', ('; ' + document.cookie).split(`; token=`).pop().split(';')[0])
     },
 })
     .then(function (response) {
@@ -51,7 +51,7 @@ axios.get('/friends', {
     function inboxMsg() {
         axios.get('/chats', {
                 headers: {
-                    Authorization: ('Bearer ', localStorage.getItem("token"))
+                    Authorization: ('Bearer ', ('; ' + document.cookie).split(`; token=`).pop().split(';')[0])
                 },
             })
             .then(function(response) {
@@ -88,7 +88,7 @@ axios.get('/friends', {
             }, 
             {
                 headers: {
-                    Authorization: ('Bearer ', localStorage.getItem("token"))
+                    Authorization: ('Bearer ', ('; ' + document.cookie).split(`; token=`).pop().split(';')[0])
                 }
             })
             .then(function(response) {
@@ -117,7 +117,7 @@ axios.get('/friends', {
 function logOut() {
     axios.post('/users/logout', {}, {
             headers: {
-                Authorization: ('Bearer ', localStorage.getItem("token"))
+                Authorization: ('Bearer ', ('; ' + document.cookie).split(`; token=`).pop().split(';')[0])
             }
         }).then((response) => {
             console.log("Logged Out")
